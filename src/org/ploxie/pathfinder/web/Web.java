@@ -52,8 +52,8 @@ public class Web extends HashSet<WebNode> {
         WebNode best = null;
         double distance = Double.MAX_VALUE;
         for (WebNode node : this) {
-            double currentDistance = node.distanceTo(target);
-            if (node.distanceTo(target) < distance) {
+            double currentDistance = node.getPosition().distanceTo(target);
+            if (node.getPosition().distanceTo(target) < distance) {
                 best = node;
                 distance = currentDistance;
             }

@@ -67,7 +67,7 @@ public class AStar {
             }
 
             if (!openSet.contains(target)) {
-                double cost = store.getNode().distanceTo(target);
+                double cost = store.getNode().getPosition().distanceTo(target.getPosition());
                 double g = costCache.get(store.getNode());
                 double heuristic = getHeuristic(store.getNode()) + connection.getCost();
                 double totalCost =  g + cost + heuristic;
@@ -109,7 +109,7 @@ public class AStar {
     }
 
     private double getHeuristic(Node current){
-        return current.euclideanDistanceSquared(endNode);
+        return current.getPosition().euclideanDistanceSquared(endNode.getPosition());
     }
 
     private boolean isEndNode(Node node){

@@ -29,12 +29,12 @@ public class TileNode extends Node {
 
         Region localRegion = Walker2.getLocalRegion();
         for(Direction direction : Direction.values()){
-            if(localRegion.canGoInDirection(this, direction.getXOffset(), direction.getYOffset())){
-                connections.add(new TileWalkConnection(this, new TileNode(translate(direction))));
+            if(localRegion.canGoInDirection(getPosition(), direction.getXOffset(), direction.getYOffset())){
+                connections.add(new TileWalkConnection(this, new TileNode(getPosition().translate(direction))));
             }else{
-                DoorData doorData = localRegion.getDoorData(this);
+                DoorData doorData = localRegion.getDoorData(getPosition());
                 if(doorData != null){
-                    connections.add(new ObjectActionConnection(this, new TileNode(translate(direction)), doorData.getName(), doorData.getOpenAction(), doorData.getPosition()));
+                    connections.add(new ObjectActionConnection(this, new TileNode(getPosition().translate(direction)), doorData.getName(), doorData.getOpenAction(), doorData.getPosition()));
                 }else{
                     /*doorData = localRegion.getDoorData(translate(direction));
                     if(doorData != null){

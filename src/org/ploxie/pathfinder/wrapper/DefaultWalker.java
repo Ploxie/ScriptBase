@@ -44,13 +44,13 @@ public class DefaultWalker extends Walker {
         if(firstConnection instanceof WalkConnection){
             for (NodeConnection connection : path.getConnections()) {
                 if (!(connection instanceof WalkConnection)) {
-                    if(Walker.getInstance().getReachable().canReach(connection.getSource(), Walker2.getLocalPlayerPosition())){
+                    if(Walker.getInstance().getReachable().canReach(connection.getSource().getPosition(), Walker2.getLocalPlayerPosition())){
                         lastConnection = connection;
                     }
                     break;
                 }
 
-                if(!Walker.getInstance().getReachable().canReach(connection.getTarget(), connection.getSource())){
+                if(!Walker.getInstance().getReachable().canReach(connection.getTarget().getPosition(), connection.getSource().getPosition())){
                     break;
                 }
 

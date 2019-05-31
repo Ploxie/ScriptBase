@@ -61,7 +61,7 @@ public class MinimapReachable extends DefaultReachable {
         if(reachMap.contains(target)){
             return;
         }
-        if(!localRegion.canGoInDirection(current, direction)){
+        if(!localRegion.canGoInDirection(current.getPosition(), direction)){
             return;
         }
 

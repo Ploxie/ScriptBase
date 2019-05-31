@@ -3,20 +3,38 @@ package org.ploxie.pathfinder.web.node;
 import org.ploxie.pathfinder.web.connections.NodeConnection;
 import org.ploxie.pathfinder.web.connections.NodeWalkConnection;
 import org.ploxie.pathfinder.wrapper.Position;
+import org.ploxie.pathfinder.wrapper.Positionable;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class Node extends Position {
+public abstract class Node implements Positionable {
 
+    protected Position position;
     protected Set<NodeConnection> connectionSet = new HashSet<>();
 
     public Node(int x, int y, int z) {
-        super(x, y, z);
+        this.position = new Position(x,y,z);
     }
 
     public Node(Position position) {
-        super(position.getX(), position.getY(), position.getZ());
+        this.position = position;
+    }
+
+    public Position getPosition(){
+        return position;
+    }
+
+    public int getX(){
+        return getPosition().getX();
+    }
+
+    public int getY(){
+        return getPosition().getY();
+    }
+
+    public int getZ(){
+        return getPosition().getZ();
     }
 
     public boolean addConnection(Node node) {
@@ -39,4 +57,17 @@ public abstract class Node extends Position {
         return connectionSet;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null){
+            return false;
+        }
+        Node compare = (Node) obj;
+        return hashCode() == compare.hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        return position.hashCode();
+    }
 }

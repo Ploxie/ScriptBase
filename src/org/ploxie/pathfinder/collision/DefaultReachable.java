@@ -32,7 +32,7 @@ public class DefaultReachable implements Reachable {
         if(reachMap.contains(target)){
             return;
         }
-        if(!localRegion.canGoInDirection(current, direction)){
+        if(!localRegion.canGoInDirection(current.getPosition(), direction)){
             return;
         }
 
@@ -54,7 +54,7 @@ public class DefaultReachable implements Reachable {
         int distance = Integer.MAX_VALUE;
         for(TileNode node : reachMap){
 
-            Position pos = node;
+            Position pos = node.getPosition();
             int dist = position.distanceTo(pos);
             if(dist < distance){
 

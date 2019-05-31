@@ -23,7 +23,7 @@ public class NodeWalkExecutor implements NodeConnectionExecutor<NodeWalkConnecti
     @Override
     public boolean execute(NodeWalkConnection connection) {
 
-        Position walkToPosition = connection.getTarget();
+        Position walkToPosition = connection.getTarget().getPosition();
         if(!Walker.getInstance().getReachable().canReach(walkToPosition, Walker2.getLocalPlayerPosition())){
             walkToPosition = Walker.getInstance().getReachable().getClosestTo(walkToPosition);
             Log.info("ASDASD "+walkToPosition);
@@ -44,7 +44,7 @@ public class NodeWalkExecutor implements NodeConnectionExecutor<NodeWalkConnecti
             Point minimapCenter = Projection.toMinimap(Players.getLocal().getPosition());
             if(p != null && p.distance(minimapCenter) <= distance){
                 Log.info(p.distance(minimapCenter));
-                walkToPosition = c.getTarget();
+                walkToPosition = c.getTarget().getPosition();
                 break;
             }
         }

@@ -2,12 +2,16 @@ package org.ploxie.pathfinder.wrapper;
 
 import org.ploxie.wrapper.Triplet;
 
-public class Position extends Triplet<Integer, Integer, Integer> {
+public class Position extends Triplet<Integer, Integer, Integer> implements Positionable{
 
     protected int cached_hash = -1;
 
     public Position(int x, int y, int z) {
         super(x, y, z);
+    }
+
+    public Position getPosition(){
+        return this;
     }
 
     public int getX() {

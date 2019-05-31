@@ -9,7 +9,7 @@ public abstract class WalkConnection extends NodeConnection {
     }
 
     public double getCost(){
-        return source.euclideanDistanceSquared(target);
+        return source.getPosition().euclideanDistanceSquared(target.getPosition());
     }
 
 }

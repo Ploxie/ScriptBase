@@ -6,6 +6,7 @@ import org.ploxie.pathfinder.Walker;
 import org.ploxie.pathfinder.Walker2;
 import org.ploxie.pathfinder.web.Web;
 import org.ploxie.pathfinder.web.connections.NodeConnection;
+import org.ploxie.pathfinder.web.node.DynamicNode;
 import org.ploxie.pathfinder.web.node.WebNode;
 import org.ploxie.pathfinder.web.path.Path;
 import org.ploxie.pathfinder.wrapper.Position;
@@ -35,7 +36,7 @@ public class TestScript extends Script implements RenderListener{
 
         DynamicNode node = new DynamicNode() {
             @Override
-            protected Position getDynamicPosition() {
+            public Position getPosition() {
                 return Walker2.getLocalPlayerPosition();
             }
         };
@@ -43,7 +44,7 @@ public class TestScript extends Script implements RenderListener{
         Log.info(node);
 
 
-        //web.addConnection(web.getNearestNode(new Position(3222, 3218, 0)), node);
+        web.addConnection(web.getNearestNode(new Position(3222, 3218, 0)), node);
 
 
         Walker2.setInternalWalker(new RSPeerWalker2(web));
