@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Default" pattern="file[ScriptBase]:src//*&amp;&amp;!file:ScriptBase.iml&amp;&amp;!file[ScriptBase]:.idea/scopes//*&amp;&amp;!file[ScriptBase]:.idea//*" />
+</component>
