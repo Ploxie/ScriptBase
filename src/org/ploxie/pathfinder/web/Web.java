@@ -1,8 +1,10 @@
 package org.ploxie.pathfinder.web;
 
+import org.ploxie.pathfinder.web.area.WebArea;
 import org.ploxie.pathfinder.web.connections.NodeConnection;
 import org.ploxie.wrapper.Position;
 import org.ploxie.pathfinder.web.node.WebNode;
+import org.rspeer.ui.Log;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -34,13 +36,17 @@ public class Web extends HashSet<WebNode> {
     }
 
     public boolean addConnection(NodeConnection connection){
-        if(!contains(connection.getSource()) && connection.getSource() instanceof WebNode){
+        if(connection.getSource() instanceof WebNode){
             add((WebNode)connection.getSource());
         }
-        if(!contains(connection.getTarget()) && connection.getTarget() instanceof WebNode){
+        if(connection.getTarget() instanceof WebNode){
             add((WebNode)connection.getTarget());
         }
         return connection.getSource().addConnection(connection);
+    }
+
+    public void addWebArea(WebArea area){
+        area.addNodes(this);
     }
 
     public WebNode getNode(int x, int y, int plane) {

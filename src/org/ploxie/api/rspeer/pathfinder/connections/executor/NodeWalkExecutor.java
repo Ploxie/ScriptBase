@@ -31,19 +31,6 @@ public class NodeWalkExecutor implements NodeConnectionExecutor<NodeWalkConnecti
 
         Path localPath = new AStar().buildPath(new TileNode(Walker2.getLocalPlayerPosition()), new TileNode(walkToPosition));
 
-        boolean hasDoors = false;
-        for(NodeConnection c : localPath.getConnections()){
-            if(!(c instanceof WalkConnection)){
-                hasDoors = true;
-                Log.info("TRUE");
-                break;
-            }
-        }
-
-        if(hasDoors){
-            return Walker.getInstance().execute(localPath);
-        }
-
         List<NodeConnection> connections = localPath.getConnections();
         Collections.reverse(connections);
 

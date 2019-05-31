@@ -4,7 +4,7 @@ import org.ploxie.pathfinder.Walker2;
 import org.ploxie.pathfinder.collision.DoorData;
 import org.ploxie.pathfinder.collision.region.Region;
 import org.ploxie.pathfinder.web.connections.NodeConnection;
-import org.ploxie.pathfinder.web.connections.ObjectActionConnection;
+import org.ploxie.pathfinder.web.connections.ObjectConnection;
 import org.ploxie.pathfinder.web.connections.TileWalkConnection;
 import org.ploxie.wrapper.Direction;
 import org.ploxie.wrapper.Position;
@@ -32,11 +32,11 @@ public class TileNode extends Node {
             }else{
                 DoorData doorData = localRegion.getDoorData(getPosition());
                 if(doorData != null){
-                    connections.add(new ObjectActionConnection(this, new TileNode(getPosition().translate(direction)), doorData.getName(), doorData.getOpenAction(), doorData.getPosition()));
+                    connections.add(new ObjectConnection(this, new TileNode(getPosition().translate(direction)), doorData.getName(), doorData.getOpenAction(), doorData.getPosition()));
                 }else{
                     /*doorData = localRegion.getDoorData(translate(direction));
                     if(doorData != null){
-                        connections.add(new ObjectActionConnection(this, new TileNode(translate(direction)), doorData.getName(), doorData.getOpenAction()));
+                        connections.add(new ObjectConnection(this, new TileNode(translate(direction)), doorData.getName(), doorData.getOpenAction()));
                     }*/
                 }
             }

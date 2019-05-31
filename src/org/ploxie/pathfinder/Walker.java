@@ -59,4 +59,12 @@ public abstract class Walker implements Pathfinder, PathExecutor {
         return connectionExecutors.get(connection.getClass());
     }
 
+    public boolean executeConnection(NodeConnection connection){
+        NodeConnectionExecutor executor = getConnectionExecutor(connection);
+        if(executor != null){
+            return executor.execute(connection);
+        }
+        return false;
+    }
+
 }

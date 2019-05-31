@@ -16,7 +16,7 @@ public class RSPeerWalker extends DefaultWalker {
         addConnectionExecutor(new NodeWalkExecutor());
         addConnectionExecutor(new TileWalkExecutor());
 
-        setReachable(new MinimapReachable());
+        //setReachable(new MinimapReachable());
     }
 
 }

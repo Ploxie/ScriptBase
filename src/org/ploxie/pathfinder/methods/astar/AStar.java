@@ -2,8 +2,12 @@ package org.ploxie.pathfinder.methods.astar;
 
 import org.ploxie.pathfinder.web.connections.NodeConnection;
 import org.ploxie.pathfinder.web.node.Node;
+import org.ploxie.pathfinder.web.node.TileNode;
+import org.ploxie.pathfinder.web.node.WebNode;
+import org.ploxie.pathfinder.web.path.LocalPath;
 import org.ploxie.pathfinder.web.path.NodePath;
 import org.ploxie.pathfinder.web.path.Path;
+import org.ploxie.pathfinder.web.path.WebPath;
 
 import java.lang.reflect.Array;
 import java.util.*;
@@ -31,6 +35,14 @@ public class AStar {
         pathCache = new HashMap<>();
     }
 
+    public LocalPath buildPath(TileNode start, TileNode end){
+        return (LocalPath) buildPath(start, end, false);
+    }
+
+    public WebPath buildPath(WebNode start, WebNode end){
+        return (WebPath) buildPath(start, end, false);
+    }
+
     public Path buildPath(Node start, Node end){
         return buildPath(start, end, false);
     }
@@ -50,6 +62,11 @@ public class AStar {
             closedSet.add(current.getNode());
 
             if(isEndNode(current.getNode())){
+                if(start instanceof TileNode){
+                    return new LocalPath(startNode, endNode, collectPath());
+                }else if(start instanceof WebNode){
+                    return new WebPath(startNode, endNode, collectPath());
+                }
                 return new NodePath(startNode, endNode, collectPath());
             }else{
                 addNeighbours(current);

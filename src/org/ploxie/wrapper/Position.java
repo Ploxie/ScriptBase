@@ -37,13 +37,14 @@ public class Position extends Triplet<Integer, Integer, Integer> implements Posi
     }
 
     public double euclideanDistanceSquared(Positionable target){
-        return Math.sqrt(Math.pow((double)(target.getX() - getX()), 2.0D)) + Math.sqrt(Math.pow((double)(target.getY() - getY()), 2.0D));
+        return Math.sqrt(Math.pow((double)(target.getX() - getX()), 2.0D)) + Math.sqrt(Math.pow((double)(target.getY() - getY()), 2.0D))+Math.sqrt(Math.pow((double)(target.getZ() - getZ()), 2.0D));
     }
 
     public int distanceTo(Positionable target) {
         int distX = Math.abs(getX() - target.getX());
         int distY = Math.abs(getY() - target.getY());
-        return distX + distY;
+        int distZ = (Math.abs(getZ() - target.getZ()) * 1000);
+        return distX + distY + distZ;
     }
 
     public boolean equals(Object obj) {

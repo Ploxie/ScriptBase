@@ -3,19 +3,19 @@ package org.ploxie.pathfinder.web.connections;
 import org.ploxie.pathfinder.web.node.Node;
 import org.ploxie.wrapper.Position;
 
-public class ObjectActionConnection extends NodeConnection {
+public class ObjectConnection extends NodeConnection {
 
     private String name;
     private String action;
     private Position position;
 
-    public ObjectActionConnection(Node source, Node target, String objectName, String objectAction) {
+    public ObjectConnection(Node source, Node target, String objectName, String objectAction) {
         super(source, target);
         this.name = objectName;
         this.action = objectAction;
     }
 
-    public ObjectActionConnection(Node source, Node target, String objectName, String objectAction, Position position) {
+    public ObjectConnection(Node source, Node target, String objectName, String objectAction, Position position) {
         super(source, target);
         this.name = objectName;
         this.action = objectAction;
