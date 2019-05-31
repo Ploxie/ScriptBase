@@ -1,10 +1,6 @@
 package org.ploxie.gui;
 
-import org.ploxie.pathfinder.methods.AStarPathfinder;
-import org.ploxie.pathfinder.methods.Pathfinder2;
 import org.ploxie.pathfinder.web.Web;
-import org.ploxie.pathfinder.web.WebNode;
-import org.ploxie.pathfinder.web.connections.WebNodeConnection;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -13,7 +9,6 @@ import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.util.Collection;
 
 public class WorldMapViewer extends ZoomablePane {
 
@@ -21,14 +16,8 @@ public class WorldMapViewer extends ZoomablePane {
 
     public Web web = new Web();
 
-    private WebNode hoveredNode;
-    private WebNode selectedNode;
 
-    private Pathfinder2 pathfinder = new AStarPathfinder();
-    private Collection<WebNode> path;
 
-    private WebNode startNode;
-    private WebNode endNode;
 
 
     public WorldMapViewer(String url) {
@@ -38,14 +27,14 @@ public class WorldMapViewer extends ZoomablePane {
 
         setComponentPopupMenu(new NodePopupMenu(this));
 
-        MouseAdapter mouseAdapter = createMouseAdapter();
+        /*MouseAdapter mouseAdapter = createMouseAdapter();
         addMouseListener(mouseAdapter);
-        addMouseMotionListener(mouseAdapter);
+        addMouseMotionListener(mouseAdapter);*/
     }
 
     @Override
     public void paint(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g;
+      /*  Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
 
         Color nodeBorderColor = new Color(0, 0, 255, 200);
@@ -106,7 +95,7 @@ public class WorldMapViewer extends ZoomablePane {
 
                 g2.drawLine(nodeScreenPoint.x + lineOffset, nodeScreenPoint.y + lineOffset, targetNodeScreenPoint.x + lineOffset, targetNodeScreenPoint.y + lineOffset);
             }
-        }*/
+        }
 
         //Draw Path
         if (path != null) {
@@ -133,7 +122,7 @@ public class WorldMapViewer extends ZoomablePane {
         //Draw tile info
         final Font font1 = new Font("Verdana", Font.BOLD, 15);
         String tileCoordText = "Tile: (" + cursorTile.x + ", " + cursorTile.y + ")";
-        drawString(g2, font1, tileCoordText, 10, 20, Color.BLACK, Color.RED, 2);
+        drawString(g2, font1, tileCoordText, 10, 20, Color.BLACK, Color.RED, 2);*/
 
     }
 
@@ -149,47 +138,47 @@ public class WorldMapViewer extends ZoomablePane {
         g.fill(textShape);
     }
 
-    public void removeNode(WebNode node) {
-        if (node == null) {
+    public void removeNode() {
+        /*if (node == null) {
             return;
-        }
+        }*/
 
         //web.removeWebNode(node);
         repaint();
     }
 
     public void setStartNode() {
-        WebNode node = getCursorNode();
+        /*WebNode node = getCursorNode();
         if (web.contains(node)) {
             startNode = node;
-        }
+        }*/
     }
 
     public void setEndNode() {
-        WebNode node = getCursorNode();
+        /*WebNode node = getCursorNode();
         if (web.contains(node)) {
             endNode = node;
         }
 
         if (startNode != null && endNode != null) {
             path = pathfinder.findPath(startNode, endNode);
-        }
+        }*/
     }
 
-    private WebNode getCursorNode() {
+    /*private WebNode getCursorNode() {
         Point cursor = getCursorPos();
         Point cursorTile = pointToTile(cursor.x, cursor.y);
         //return web.getNode(cursorTile.x, cursorTile.y, 0);
         return null;
-    }
+    }*/
 
-    private MouseAdapter createMouseAdapter() {
+   /* private MouseAdapter createMouseAdapter() {
         return new MouseAdapter() {
 
             @Override
             public void mouseMoved(MouseEvent e) {
                 WebNode node = getCursorNode();
-                if (web.contains(node)) {
+               /* if (web.contains(node)) {
                     hoveredNode = node;
                 } else {
                     hoveredNode = null;
@@ -200,7 +189,7 @@ public class WorldMapViewer extends ZoomablePane {
             public void mouseClicked(MouseEvent e) {
                 WebNode node = getCursorNode();
 
-                if(e.getButton() == MouseEvent.BUTTON3){
+                /*if(e.getButton() == MouseEvent.BUTTON3){
                     selectedNode = null;
                     return;
                 }
@@ -227,10 +216,10 @@ public class WorldMapViewer extends ZoomablePane {
                     }else{
                         selectedNode = null;
                     }
-                }*/
+                }
             }
         };
-    }
+    }*/
 
     private Point pointToTile(int x, int y) {
         Point result = new Point();
@@ -250,7 +239,8 @@ public class WorldMapViewer extends ZoomablePane {
         return new Point((int) Math.floor((x + (xOffset / zoomFactor)) * zoomFactor), (int) Math.floor((y + (yOffset / zoomFactor)) * zoomFactor));
     }
 
-    public WebNode getHoveredNode() {
-        return hoveredNode;
-    }
+    /*public WebNode getHoveredNode() {
+        //return hoveredNode;
+        return null;
+    }*/
 }

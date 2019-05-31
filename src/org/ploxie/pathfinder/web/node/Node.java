@@ -2,8 +2,8 @@ package org.ploxie.pathfinder.web.node;
 
 import org.ploxie.pathfinder.web.connections.NodeConnection;
 import org.ploxie.pathfinder.web.connections.NodeWalkConnection;
-import org.ploxie.pathfinder.wrapper.Position;
-import org.ploxie.pathfinder.wrapper.Positionable;
+import org.ploxie.wrapper.Position;
+import org.ploxie.wrapper.Positionable;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -35,6 +35,14 @@ public abstract class Node implements Positionable {
 
     public int getZ(){
         return getPosition().getZ();
+    }
+
+    public double euclideanDistanceSquared(Positionable target){
+        return position.euclideanDistanceSquared(target);
+    }
+
+    public int distanceTo(Positionable target){
+        return position.distanceTo(target);
     }
 
     public boolean addConnection(Node node) {

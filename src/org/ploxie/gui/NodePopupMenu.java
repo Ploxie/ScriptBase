@@ -1,12 +1,9 @@
 package org.ploxie.gui;
 
-import org.ploxie.pathfinder.web.WebNode;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
 
 public class NodePopupMenu extends JPopupMenu {
 
@@ -22,8 +19,9 @@ public class NodePopupMenu extends JPopupMenu {
         JMenuItem info = new JMenuItem(){
             @Override
             public String getText() {
-                WebNode hoverNode = viewer.getHoveredNode();
-                return super.getText() + ((hoverNode != null) ? hoverNode : "");
+               // WebNode hoverNode = viewer.getHoveredNode();
+                //return super.getText() + ((hoverNode != null) ? hoverNode : "");
+                return null;
             }
         };
         info.setMargin(inset);
@@ -44,7 +42,7 @@ public class NodePopupMenu extends JPopupMenu {
 
         setStart.addActionListener(e -> viewer.setStartNode());
         setGoal.addActionListener(e -> viewer.setEndNode());
-        removeNode.addActionListener(e -> viewer.removeNode(viewer.getHoveredNode()));
+        //removeNode.addActionListener(e -> viewer.removeNode(viewer.getHoveredNode()));
 
 
         MouseAdapter mouseAdapter = new MouseAdapter() {
@@ -54,7 +52,7 @@ public class NodePopupMenu extends JPopupMenu {
                     setVisible(false);
                 }
 
-                WebNode hoverNode = viewer.getHoveredNode();
+               /* WebNode hoverNode = viewer.getHoveredNode();
                 if(hoverNode == null){
                     remove(info);
                     remove(setStart);
@@ -65,7 +63,7 @@ public class NodePopupMenu extends JPopupMenu {
                     add(setStart);
                     add(setGoal);
                     add(removeNode);
-                }
+                }*/
             }
         };
 

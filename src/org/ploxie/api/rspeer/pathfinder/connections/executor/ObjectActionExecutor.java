@@ -2,7 +2,7 @@ package org.ploxie.api.rspeer.pathfinder.connections.executor;
 
 import org.ploxie.pathfinder.web.connections.ObjectActionConnection;
 import org.ploxie.pathfinder.web.connections.executor.NodeConnectionExecutor;
-import org.ploxie.pathfinder.wrapper.Position;
+import org.ploxie.wrapper.Position;
 import org.rspeer.runetek.adapter.scene.SceneObject;
 import org.rspeer.runetek.api.scene.SceneObjects;
 import org.rspeer.ui.Log;
@@ -16,7 +16,6 @@ public class ObjectActionExecutor implements NodeConnectionExecutor<ObjectAction
             return pos.distanceTo(otherPos);
         }, sceneObject -> {
             if (connection.getPosition() != null) {
-                Log.info("ASDASD");
                 if (sceneObject.getPosition().getX() != connection.getPosition().getX() || sceneObject.getPosition().getY() != connection.getPosition().getY() || sceneObject.getPosition().getFloorLevel() != connection.getPosition().getZ()) {
                     return false;
                 }

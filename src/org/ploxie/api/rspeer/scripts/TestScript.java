@@ -6,10 +6,10 @@ import org.ploxie.pathfinder.Walker;
 import org.ploxie.pathfinder.Walker2;
 import org.ploxie.pathfinder.web.Web;
 import org.ploxie.pathfinder.web.connections.NodeConnection;
-import org.ploxie.pathfinder.web.node.DynamicNode;
+import org.ploxie.pathfinder.web.connections.ObjectActionConnection;
 import org.ploxie.pathfinder.web.node.WebNode;
 import org.ploxie.pathfinder.web.path.Path;
-import org.ploxie.pathfinder.wrapper.Position;
+import org.ploxie.wrapper.Position;
 import org.ploxie.pathfinder.wrapper.RSPeerWalker2;
 import org.ploxie.pathfinder.web.WebFileIO;
 import org.rspeer.runetek.api.movement.Movement;
@@ -34,18 +34,12 @@ public class TestScript extends Script implements RenderListener{
         Web loadedWeb = WebFileIO.loadWeb(new File("C:\\Users\\Ploxie\\Documents\\data.web"));
         this.web = loadedWeb;
 
-        DynamicNode node = new DynamicNode() {
-            @Override
-            public Position getPosition() {
-                return Walker2.getLocalPlayerPosition();
-            }
-        };
+        WebNode a = web.getNearestNode(3223,3219,0);
+        WebNode b = web.getNode(3229,3223,1);
 
-        Log.info(node);
+        ObjectActionConnection ladder = new ObjectActionConnection(a,b, "Ladder", "Climb-up", new Position(3229,3224,0));
 
-
-        web.addConnection(web.getNearestNode(new Position(3222, 3218, 0)), node);
-
+        web.addConnection(ladder);
 
         Walker2.setInternalWalker(new RSPeerWalker2(web));
         Walker.create(new RSPeerWalker(web));
@@ -63,10 +57,10 @@ public class TestScript extends Script implements RenderListener{
         //Path path = Walker.getInstance().findPath(Walker2.getLocalPlayerPosition(), new Position(3254, 3420,0));
         //Path path = Walker.getInstance().findPath(Walker2.getLocalPlayerPosition(), new Position(3259, 3228,0));
 
-        Path path = Walker.getInstance().findPath(Walker2.getLocalPlayerPosition(), new Position(3229, 3223,0));
+        Path path = Walker.getInstance().findPath(Walker2.getLocalPlayerPosition(), new Position(3229, 3223,1));
 
         if(path != null){
-            //path.traverse(Walker.getInstance());
+            path.traverse(Walker.getInstance());
         }else{
             Log.info("ASD");
         }

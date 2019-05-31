@@ -6,12 +6,10 @@ import org.ploxie.event.listeners.RegionChangedListener;
 import org.ploxie.event.observer.types.RegionChangedObserver;
 import org.ploxie.event.types.RegionChangedEvent;
 import org.ploxie.pathfinder.Walker2;
-import org.ploxie.pathfinder.collision.ReachMap2;
 import org.ploxie.pathfinder.web.Web;
 import org.ploxie.pathfinder.web.WebFileIO;
-import org.ploxie.pathfinder.web.path.WebPath;
 import org.ploxie.pathfinder.wrapper.RSPeerWalker2;
-import org.ploxie.pathfinder.wrapper.Position;
+import org.ploxie.wrapper.Position;
 import org.rspeer.runetek.api.movement.Movement;
 import org.rspeer.runetek.event.listeners.RenderListener;
 import org.rspeer.runetek.event.types.RenderEvent;
@@ -45,10 +43,6 @@ public class RegionRecorder extends Script implements RenderListener, RegionChan
             return 1000;
         }
 
-        WebPath path = Walker2.findPath(new Position(3253, 3420, 0));
-        if(path != null){
-            path.traverse();
-        }
 
 
 
@@ -57,7 +51,6 @@ public class RegionRecorder extends Script implements RenderListener, RegionChan
 
     @Override
     public void notify(RenderEvent renderEvent) {
-        ReachMap2 map = ReachMap2.getReachMap();
 
         Graphics g = renderEvent.getSource();
 
@@ -97,6 +90,5 @@ public class RegionRecorder extends Script implements RenderListener, RegionChan
 
     @Override
     public void notify(RegionChangedEvent event) {
-        ReachMap2.forceReload();
     }
 }

@@ -1,6 +1,6 @@
 package org.ploxie.pathfinder.web.node;
 
-import org.ploxie.pathfinder.wrapper.Position;
+import org.ploxie.wrapper.Position;
 
 public class WebNode extends Node {
 

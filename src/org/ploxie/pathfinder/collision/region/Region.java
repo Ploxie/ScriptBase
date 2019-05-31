@@ -1,7 +1,9 @@
-package org.ploxie.pathfinder.collision;
+package org.ploxie.pathfinder.collision.region;
 
-import org.ploxie.pathfinder.wrapper.Direction;
-import org.ploxie.pathfinder.wrapper.Position;
+import org.ploxie.pathfinder.collision.CollisionData;
+import org.ploxie.pathfinder.collision.DoorData;
+import org.ploxie.wrapper.Direction;
+import org.ploxie.wrapper.Position;
 
 public abstract class Region {
 

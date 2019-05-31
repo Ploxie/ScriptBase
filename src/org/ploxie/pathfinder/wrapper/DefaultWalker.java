@@ -10,6 +10,7 @@ import org.ploxie.pathfinder.web.connections.executor.NodeConnectionExecutor;
 import org.ploxie.pathfinder.web.node.Node;
 import org.ploxie.pathfinder.web.node.TileNode;
 import org.ploxie.pathfinder.web.path.Path;
+import org.ploxie.wrapper.Position;
 
 public class DefaultWalker extends Walker {
 
@@ -44,13 +45,13 @@ public class DefaultWalker extends Walker {
         if(firstConnection instanceof WalkConnection){
             for (NodeConnection connection : path.getConnections()) {
                 if (!(connection instanceof WalkConnection)) {
-                    if(Walker.getInstance().getReachable().canReach(connection.getSource().getPosition(), Walker2.getLocalPlayerPosition())){
+                    if(Walker.getInstance().getReachable().canReach(connection.getSource(), Walker2.getLocalPlayerPosition())){
                         lastConnection = connection;
                     }
                     break;
                 }
 
-                if(!Walker.getInstance().getReachable().canReach(connection.getTarget().getPosition(), connection.getSource().getPosition())){
+                if(!Walker.getInstance().getReachable().canReach(connection.getTarget(), connection.getSource())){
                     break;
                 }
 

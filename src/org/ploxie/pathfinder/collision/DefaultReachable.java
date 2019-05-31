@@ -1,14 +1,14 @@
 package org.ploxie.pathfinder.collision;
 
 import org.ploxie.pathfinder.Walker2;
+import org.ploxie.pathfinder.collision.region.Region;
 import org.ploxie.pathfinder.methods.astar.AStar;
 import org.ploxie.pathfinder.web.node.TileNode;
-import org.ploxie.pathfinder.wrapper.Direction;
-import org.ploxie.pathfinder.wrapper.Position;
-import org.rspeer.ui.Log;
+import org.ploxie.wrapper.Direction;
+import org.ploxie.wrapper.Position;
+import org.ploxie.wrapper.Positionable;
 
 import java.util.HashSet;
-import java.util.Iterator;
 
 public class DefaultReachable implements Reachable {
 
@@ -40,14 +40,14 @@ public class DefaultReachable implements Reachable {
         searchTile(target);
     }
 
-    public boolean canReach(Position position, Position from){
-        return new AStar().buildPath(new TileNode(from), new TileNode(position)) != null;
+    public boolean canReach(Positionable position, Positionable from){
+        return new AStar().buildPath(new TileNode(from.getPosition()), new TileNode(position.getPosition())) != null;
     }
 
-    public Position getClosestTo(Position position){
+    public Position getClosestTo(Positionable positionable){
         reload(new TileNode(Walker2.getLocalPlayerPosition()));
-        if(reachMap.contains(position)){
-            return position;
+        if(reachMap.contains(positionable)){
+            return positionable.getPosition();
         }
 
         Position closest = null;
@@ -55,7 +55,7 @@ public class DefaultReachable implements Reachable {
         for(TileNode node : reachMap){
 
             Position pos = node.getPosition();
-            int dist = position.distanceTo(pos);
+            int dist = positionable.distanceTo(pos);
             if(dist < distance){
 
                 closest = pos;

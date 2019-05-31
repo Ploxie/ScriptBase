@@ -1,9 +1,8 @@
-package org.ploxie.pathfinder.collision;
+package org.ploxie.pathfinder.collision.region;
 
-import org.ploxie.pathfinder.wrapper.Direction;
-import org.ploxie.pathfinder.wrapper.Position;
-import org.rspeer.runetek.adapter.scene.SceneObject;
-import org.rspeer.runetek.api.scene.SceneObjects;
+import org.ploxie.pathfinder.collision.CollisionData;
+import org.ploxie.wrapper.Direction;
+import org.ploxie.wrapper.Position;
 
 
 public class LocalRegion {
@@ -59,16 +58,6 @@ public class LocalRegion {
         }
 
         return true;
-    }
-
-    public SceneObject getDoor(Position position){
-        SceneObject[] doors = SceneObjects.getLoaded(new DoorPredicate(position));
-
-        if(doors != null && doors.length > 0){
-            return doors[0];
-        }
-
-        return null;
     }
 
 

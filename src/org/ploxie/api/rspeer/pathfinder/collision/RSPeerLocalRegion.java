@@ -1,12 +1,10 @@
 package org.ploxie.api.rspeer.pathfinder.collision;
 
 import org.ploxie.pathfinder.collision.DoorData;
-import org.ploxie.pathfinder.collision.LocalRegion;
-import org.ploxie.pathfinder.collision.Region;
-import org.ploxie.pathfinder.wrapper.Position;
+import org.ploxie.pathfinder.collision.region.Region;
+import org.ploxie.wrapper.Position;
 import org.rspeer.runetek.adapter.scene.SceneObject;
 import org.rspeer.runetek.api.scene.SceneObjects;
-import org.rspeer.ui.Log;
 
 public class RSPeerLocalRegion extends Region {
 

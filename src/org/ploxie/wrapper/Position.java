@@ -1,6 +1,4 @@
-package org.ploxie.pathfinder.wrapper;
-
-import org.ploxie.wrapper.Triplet;
+package org.ploxie.wrapper;
 
 public class Position extends Triplet<Integer, Integer, Integer> implements Positionable{
 
@@ -38,11 +36,11 @@ public class Position extends Triplet<Integer, Integer, Integer> implements Posi
         return new Position(getX() + x, getY()+y,getZ() + z);
     }
 
-    public double euclideanDistanceSquared(Position target){
+    public double euclideanDistanceSquared(Positionable target){
         return Math.sqrt(Math.pow((double)(target.getX() - getX()), 2.0D)) + Math.sqrt(Math.pow((double)(target.getY() - getY()), 2.0D));
     }
 
-    public int distanceTo(Position target) {
+    public int distanceTo(Positionable target) {
         int distX = Math.abs(getX() - target.getX());
         int distY = Math.abs(getY() - target.getY());
         return distX + distY;

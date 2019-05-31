@@ -1,4 +1,4 @@
-package org.ploxie.pathfinder.wrapper;
+package org.ploxie.wrapper;
 
 public enum Direction {
 

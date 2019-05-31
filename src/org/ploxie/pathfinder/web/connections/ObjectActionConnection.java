@@ -1,12 +1,7 @@
 package org.ploxie.pathfinder.web.connections;
 
 import org.ploxie.pathfinder.web.node.Node;
-import org.ploxie.pathfinder.wrapper.Position;
-import org.rspeer.runetek.adapter.scene.SceneObject;
-import org.rspeer.runetek.api.scene.SceneObjects;
-
-import java.util.Comparator;
-import java.util.function.Predicate;
+import org.ploxie.wrapper.Position;
 
 public class ObjectActionConnection extends NodeConnection {
 

@@ -2,14 +2,12 @@ package org.ploxie.pathfinder.web.node;
 
 import org.ploxie.pathfinder.Walker2;
 import org.ploxie.pathfinder.collision.DoorData;
-import org.ploxie.pathfinder.collision.LocalRegion;
-import org.ploxie.pathfinder.collision.Region;
+import org.ploxie.pathfinder.collision.region.Region;
 import org.ploxie.pathfinder.web.connections.NodeConnection;
 import org.ploxie.pathfinder.web.connections.ObjectActionConnection;
 import org.ploxie.pathfinder.web.connections.TileWalkConnection;
-import org.ploxie.pathfinder.wrapper.Direction;
-import org.ploxie.pathfinder.wrapper.Position;
-import org.rspeer.runetek.adapter.scene.SceneObject;
+import org.ploxie.wrapper.Direction;
+import org.ploxie.wrapper.Position;
 
 import java.util.Set;
 

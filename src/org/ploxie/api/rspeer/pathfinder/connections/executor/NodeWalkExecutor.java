@@ -5,10 +5,11 @@ import org.ploxie.pathfinder.Walker2;
 import org.ploxie.pathfinder.methods.astar.AStar;
 import org.ploxie.pathfinder.web.connections.NodeConnection;
 import org.ploxie.pathfinder.web.connections.NodeWalkConnection;
+import org.ploxie.pathfinder.web.connections.WalkConnection;
 import org.ploxie.pathfinder.web.connections.executor.NodeConnectionExecutor;
 import org.ploxie.pathfinder.web.node.TileNode;
 import org.ploxie.pathfinder.web.path.Path;
-import org.ploxie.pathfinder.wrapper.Position;
+import org.ploxie.wrapper.Position;
 import org.rspeer.runetek.api.movement.Movement;
 import org.rspeer.runetek.api.scene.Players;
 import org.rspeer.runetek.api.scene.Projection;
@@ -26,11 +27,22 @@ public class NodeWalkExecutor implements NodeConnectionExecutor<NodeWalkConnecti
         Position walkToPosition = connection.getTarget().getPosition();
         if(!Walker.getInstance().getReachable().canReach(walkToPosition, Walker2.getLocalPlayerPosition())){
             walkToPosition = Walker.getInstance().getReachable().getClosestTo(walkToPosition);
-            Log.info("ASDASD "+walkToPosition);
         }
 
-        Log.info(walkToPosition);
         Path localPath = new AStar().buildPath(new TileNode(Walker2.getLocalPlayerPosition()), new TileNode(walkToPosition));
+
+        boolean hasDoors = false;
+        for(NodeConnection c : localPath.getConnections()){
+            if(!(c instanceof WalkConnection)){
+                hasDoors = true;
+                Log.info("TRUE");
+                break;
+            }
+        }
+
+        if(hasDoors){
+            return Walker.getInstance().execute(localPath);
+        }
 
         List<NodeConnection> connections = localPath.getConnections();
         Collections.reverse(connections);
@@ -43,7 +55,6 @@ public class NodeWalkExecutor implements NodeConnectionExecutor<NodeWalkConnecti
             Point p = Projection.toMinimap(walkPosition, false);
             Point minimapCenter = Projection.toMinimap(Players.getLocal().getPosition());
             if(p != null && p.distance(minimapCenter) <= distance){
-                Log.info(p.distance(minimapCenter));
                 walkToPosition = c.getTarget().getPosition();
                 break;
             }

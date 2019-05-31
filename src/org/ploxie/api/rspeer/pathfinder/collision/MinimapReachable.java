@@ -2,18 +2,15 @@ package org.ploxie.api.rspeer.pathfinder.collision;
 
 import org.ploxie.pathfinder.Walker2;
 import org.ploxie.pathfinder.collision.DefaultReachable;
-import org.ploxie.pathfinder.collision.Reachable;
-import org.ploxie.pathfinder.collision.Region;
+import org.ploxie.pathfinder.collision.region.Region;
 import org.ploxie.pathfinder.methods.astar.AStar;
 import org.ploxie.pathfinder.web.connections.NodeConnection;
 import org.ploxie.pathfinder.web.node.TileNode;
 import org.ploxie.pathfinder.web.path.Path;
-import org.ploxie.pathfinder.wrapper.DefaultWalker;
-import org.ploxie.pathfinder.wrapper.Direction;
-import org.ploxie.pathfinder.wrapper.Position;
+import org.ploxie.wrapper.Direction;
+import org.ploxie.wrapper.Positionable;
 import org.rspeer.runetek.api.scene.Players;
 import org.rspeer.runetek.api.scene.Projection;
-import org.rspeer.ui.Log;
 
 import java.awt.*;
 import java.util.Collections;
@@ -21,9 +18,10 @@ import java.util.List;
 import java.util.Random;
 
 public class MinimapReachable extends DefaultReachable {
+
     @Override
-    public boolean canReach(Position target, Position from) {
-        Path localPath = new AStar().buildPath(new TileNode(from), new TileNode(target));
+    public boolean canReach(Positionable target, Positionable from) {
+        Path localPath = new AStar().buildPath(new TileNode(from.getPosition()), new TileNode(target.getPosition()));
 
         if(localPath == null){
             return false;

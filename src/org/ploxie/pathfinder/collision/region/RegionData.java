@@ -1,6 +1,7 @@
-package org.ploxie.pathfinder.collision;
+package org.ploxie.pathfinder.collision.region;
 
-import org.ploxie.pathfinder.wrapper.Position;
+import org.ploxie.pathfinder.collision.CollisionData;
+import org.ploxie.wrapper.Position;
 
 import java.util.Arrays;
 

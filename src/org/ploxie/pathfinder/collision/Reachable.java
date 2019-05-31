@@ -1,11 +1,12 @@
 package org.ploxie.pathfinder.collision;
 
-import org.ploxie.pathfinder.wrapper.Position;
+import org.ploxie.wrapper.Position;
+import org.ploxie.wrapper.Positionable;
 
 public interface Reachable{
 
-    boolean canReach(Position target, Position from);
+    boolean canReach(Positionable target, Positionable from);
 
-    Position getClosestTo(Position position);
+    Position getClosestTo(Positionable position);
 
 }
