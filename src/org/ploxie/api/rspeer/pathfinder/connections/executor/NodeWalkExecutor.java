@@ -47,6 +47,8 @@ public class NodeWalkExecutor implements NodeConnectionExecutor<NodeWalkConnecti
             }
         }
 
+        Log.info("WALKING TO: "+walkToPosition);
+
         Movement.setWalkFlag(new org.rspeer.runetek.api.movement.position.Position(walkToPosition.getX(), walkToPosition.getY(), walkToPosition.getZ()));
         return true;
     }

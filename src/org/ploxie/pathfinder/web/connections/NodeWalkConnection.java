@@ -10,4 +10,9 @@ public class NodeWalkConnection extends WalkConnection {
         super(source, target);
     }
 
+
+    @Override
+    public Class<? extends NodeConnection> getType() {
+        return NodeWalkConnection.class;
+    }
 }

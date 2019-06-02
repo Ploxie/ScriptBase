@@ -13,6 +13,7 @@ public class NodePath implements Path {
     private Node startNode;
     private Node endNode;
     private List<NodeConnection> connections;
+    private double cost;
 
     public NodePath(Node start, Node end, List<NodeConnection> connections){
         this.connections = connections;
@@ -38,6 +39,15 @@ public class NodePath implements Path {
     @Override
     public boolean traverse(PathExecutor executor) {
         return executor.execute(this);
+    }
+
+    public void setCost(double cost){
+        this.cost = cost;
+    }
+
+    @Override
+    public double getCost(){
+        return cost;
     }
 
     public boolean containsSpecialAction(){

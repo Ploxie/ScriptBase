@@ -1,9 +1,17 @@
 package org.ploxie.pathfinder.web;
 
+import org.ploxie.pathfinder.Walker2;
+import org.ploxie.pathfinder.methods.astar.AStar;
 import org.ploxie.pathfinder.web.area.WebArea;
 import org.ploxie.pathfinder.web.connections.NodeConnection;
+import org.ploxie.pathfinder.web.node.DynamicNode;
+import org.ploxie.pathfinder.web.node.Node;
+import org.ploxie.pathfinder.web.path.Path;
+import org.ploxie.pathfinder.web.webbank.WebBank;
+import org.ploxie.pathfinder.web.webbank.WebBankNode;
 import org.ploxie.wrapper.Position;
 import org.ploxie.pathfinder.web.node.WebNode;
+import org.ploxie.wrapper.Positionable;
 import org.rspeer.ui.Log;
 
 import java.util.ArrayList;
@@ -63,16 +71,69 @@ public class Web extends HashSet<WebNode> {
         return getNode(position.getX(), position.getY(), position.getZ());
     }
 
-    public WebNode getNearestNode(int x, int y, int z){
-        return getNearestNode(new Position(x,y,z));
+    public WebBank getNearestBank(){
+        return getNearestBank(Walker2.getLocalPlayerPosition());
     }
 
-    public WebNode getNearestNode(Position target) {
+    public WebBank getNearestBank(Position from){
+        Path toNearestBank = new AStar().buildPath(getNearestStaticNode(from), new WebBank.WebBankCondition());
+        if(toNearestBank == null){
+            return null;
+        }
+        Node endNode = toNearestBank.getEndNode();
+        if(endNode == null || !(endNode instanceof WebBankNode)){
+            return null;
+        }
+
+        return WebBank.getBank(endNode);
+    }
+
+    public WebNode getNearestNode(Positionable target){
         WebNode best = null;
         double distance = Double.MAX_VALUE;
         for (WebNode node : this) {
             double currentDistance = node.getPosition().distanceTo(target);
-            if (node.getPosition().distanceTo(target) < distance) {
+            if (currentDistance < distance) {
+                best = node;
+                distance = currentDistance;
+            }
+        }
+
+        return best;
+    }
+
+    public WebNode getNearestStaticNode(int x, int y, int z){
+        return getNearestStaticNode(new Position(x,y,z));
+    }
+
+    public WebNode getNearestStaticNode(WebNode existingNode){
+        WebNode best = null;
+        double distance = Double.MAX_VALUE;
+        for (WebNode node : this) {
+            if (node.equals(existingNode)) {
+                continue;
+            }
+
+            double currentDistance = node.getPosition().distanceTo(existingNode);
+            if (currentDistance < distance) {
+                best = node;
+                distance = currentDistance;
+            }
+        }
+
+        return best;
+    }
+
+    public WebNode getNearestStaticNode(Positionable target) {
+        WebNode best = null;
+        double distance = Double.MAX_VALUE;
+        for (WebNode node : this) {
+            if (node instanceof DynamicNode) {
+                continue;
+            }
+
+            double currentDistance = node.getPosition().distanceTo(target);
+            if (currentDistance < distance) {
                 best = node;
                 distance = currentDistance;
             }

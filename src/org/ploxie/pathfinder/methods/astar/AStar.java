@@ -1,6 +1,8 @@
 package org.ploxie.pathfinder.methods.astar;
 
+import org.ploxie.pathfinder.web.connections.ItemActionConnection;
 import org.ploxie.pathfinder.web.connections.NodeConnection;
+import org.ploxie.pathfinder.web.connections.NpcConnection;
 import org.ploxie.pathfinder.web.node.Node;
 import org.ploxie.pathfinder.web.node.TileNode;
 import org.ploxie.pathfinder.web.node.WebNode;
@@ -8,8 +10,8 @@ import org.ploxie.pathfinder.web.path.LocalPath;
 import org.ploxie.pathfinder.web.path.NodePath;
 import org.ploxie.pathfinder.web.path.Path;
 import org.ploxie.pathfinder.web.path.WebPath;
+import org.rspeer.ui.Log;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class AStar {
@@ -35,19 +37,25 @@ public class AStar {
         pathCache = new HashMap<>();
     }
 
+
+
     public LocalPath buildPath(TileNode start, TileNode end){
-        return (LocalPath) buildPath(start, end, false);
+        return (LocalPath) buildPath(start, end, false, null);
     }
 
     public WebPath buildPath(WebNode start, WebNode end){
-        return (WebPath) buildPath(start, end, false);
+        return (WebPath) buildPath(start, end, false, null);
+    }
+
+    public Path buildPath(Node start, AStarEndCondition condition){
+        return buildPath(start, null, false, condition);
     }
 
     public Path buildPath(Node start, Node end){
-        return buildPath(start, end, false);
+        return buildPath(start, end, false, null);
     }
 
-    public Path buildPath(Node start, Node end, boolean ignoreNoPath){
+    protected Path buildPath(Node start, Node end, boolean ignoreNoPath, AStarEndCondition condition){
         this.startNode = start;
         this.endNode = end;
 
@@ -55,17 +63,30 @@ public class AStar {
         openSet.add(start);
         costCache.put(start, 0.0D);
 
+
+
         while(!openList.isEmpty()){
             AStarStore current = openList.poll();
             openSet.remove(current.getNode());
 
             closedSet.add(current.getNode());
 
-            if(isEndNode(current.getNode())){
+            AStarEndCondition isEndCondition = condition;
+            if(isEndCondition == null){
+                isEndCondition = isEndNode();
+            }
+
+
+            if(isEndCondition.validate(current.getNode())){
+                endNode = current.getNode();
                 if(start instanceof TileNode){
-                    return new LocalPath(startNode, endNode, collectPath());
+                    LocalPath path = new LocalPath(startNode, endNode, collectPath());
+                    path.setCost(costCache.get(endNode));
+                    return path;
                 }else if(start instanceof WebNode){
-                    return new WebPath(startNode, endNode, collectPath());
+                    WebPath path = new WebPath(startNode, endNode, collectPath());
+                    path.setCost(costCache.get(endNode));
+                    return path;
                 }
                 return new NodePath(startNode, endNode, collectPath());
             }else{
@@ -78,16 +99,23 @@ public class AStar {
 
     private void addNeighbours(AStarStore store){
         for (NodeConnection connection : store.getNode().getConnections()) {
+
+            if(!connection.canUse()){
+                Log.info(connection);
+                continue;
+            }
             Node target = connection.getTarget();
             if (closedSet.contains(target)) {
                 continue;
             }
 
+
+
             if (!openSet.contains(target)) {
                 double cost = store.getNode().getPosition().distanceTo(target.getPosition());
                 double g = costCache.get(store.getNode());
                 double heuristic = getHeuristic(store.getNode()) + connection.getCost();
-                double totalCost =  g + cost + heuristic;
+                double totalCost =  g + heuristic;
 
                 pathCache.put(target, connection);
                 costCache.put(target, totalCost);
@@ -129,8 +157,8 @@ public class AStar {
         return current.getPosition().euclideanDistanceSquared(endNode.getPosition());
     }
 
-    private boolean isEndNode(Node node){
-        return node.equals(endNode);
+    private AStarEndCondition isEndNode(){
+        return node -> node.equals(endNode);
     }
 
 }

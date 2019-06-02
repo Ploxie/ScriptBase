@@ -6,11 +6,9 @@ import org.ploxie.pathfinder.collision.DefaultReachable;
 import org.ploxie.pathfinder.methods.astar.AStar;
 import org.ploxie.pathfinder.web.Web;
 import org.ploxie.pathfinder.web.connections.*;
-import org.ploxie.pathfinder.web.connections.executor.NodeConnectionExecutor;
 import org.ploxie.pathfinder.web.node.Node;
 import org.ploxie.pathfinder.web.node.TileNode;
 import org.ploxie.pathfinder.web.path.LocalPath;
-import org.ploxie.pathfinder.web.path.NodePath;
 import org.ploxie.pathfinder.web.path.Path;
 import org.ploxie.pathfinder.web.path.WebPath;
 import org.ploxie.wrapper.Position;
@@ -89,6 +87,8 @@ public class DefaultWalker extends Walker {
         if(walkConnection != null){
             return executeConnection(walkConnection);
         }
+
+        Log.info("LOCALPATH CANT TRAVERSE");
         return false;
     }
 
@@ -97,6 +97,7 @@ public class DefaultWalker extends Walker {
         if(firstAction != null && Walker.getInstance().getReachable().canReach(firstAction.getSource().getPosition(), Walker2.getLocalPlayerPosition())){
             LocalPath localPath = new AStar().buildPath(new TileNode(Walker2.getLocalPlayerPosition()), new TileNode(firstAction.getSource().getPosition()));
             if(!localPath.containsSpecialAction()){
+                Log.info("executing special connection: "+(firstAction instanceof ItemActionConnection));
                 return executeConnection(firstAction);
             }else{
                 execute(localPath);
@@ -112,6 +113,8 @@ public class DefaultWalker extends Walker {
                 execute(localPath);
             }
         }
+
+        Log.info("WEBPATH CANT TRAVERSE");
         return false;
     }
 

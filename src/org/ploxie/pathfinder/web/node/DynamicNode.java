@@ -2,6 +2,7 @@ package org.ploxie.pathfinder.web.node;
 
 import org.ploxie.wrapper.Position;
 
+
 public abstract class DynamicNode extends WebNode {
 
     public DynamicNode() {
@@ -9,4 +10,5 @@ public abstract class DynamicNode extends WebNode {
     }
 
     public abstract Position getPosition();
+
 }

@@ -5,14 +5,13 @@ import org.ploxie.api.rspeer.pathfinder.RSPeerWalker;
 import org.ploxie.pathfinder.Walker;
 import org.ploxie.pathfinder.Walker2;
 import org.ploxie.pathfinder.web.Web;
-import org.ploxie.pathfinder.web.area.areas.Ladders;
+import org.ploxie.pathfinder.web.area.WebArea;
 import org.ploxie.pathfinder.web.connections.NodeConnection;
-import org.ploxie.pathfinder.web.connections.ObjectConnection;
 import org.ploxie.pathfinder.web.node.WebNode;
 import org.ploxie.pathfinder.web.path.Path;
-import org.ploxie.wrapper.Position;
 import org.ploxie.pathfinder.wrapper.RSPeerWalker2;
 import org.ploxie.pathfinder.web.WebFileIO;
+import org.ploxie.wrapper.Position;
 import org.rspeer.runetek.api.movement.Movement;
 import org.rspeer.runetek.api.scene.Projection;
 import org.rspeer.runetek.event.listeners.RenderListener;
@@ -35,9 +34,11 @@ public class TestScript extends Script implements RenderListener{
         Web loadedWeb = WebFileIO.loadWeb(new File("C:\\Users\\Ploxie\\Documents\\data.web"));
         this.web = loadedWeb;
 
-        web.addWebArea(new Ladders());
-
         Walker2.setInternalWalker(new RSPeerWalker2(web));
+
+
+
+
         Walker.create(new RSPeerWalker(web));
 
 
@@ -50,12 +51,15 @@ public class TestScript extends Script implements RenderListener{
             return 1000;
         }
 
+        //Log.info(web.getNearestBank());
+
         //Path path = Walker.getInstance().findPath(Walker2.getLocalPlayerPosition(), new Position(3254, 3420,0));
         //Path path = Walker.getInstance().findPath(Walker2.getLocalPlayerPosition(), new Position(3259, 3228,0));
 
         Path path = Walker.getInstance().findPath(Walker2.getLocalPlayerPosition(), new Position(3228, 3219,2));
 
         if(path != null){
+            Log.info(path.getCost());
             path.traverse();
         }else{
             Log.info("ASD");

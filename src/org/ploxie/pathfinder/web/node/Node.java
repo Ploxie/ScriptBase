@@ -25,26 +25,6 @@ public abstract class Node implements Positionable {
         return position;
     }
 
-    public int getX(){
-        return getPosition().getX();
-    }
-
-    public int getY(){
-        return getPosition().getY();
-    }
-
-    public int getZ(){
-        return getPosition().getZ();
-    }
-
-    public double euclideanDistanceSquared(Positionable target){
-        return position.euclideanDistanceSquared(target);
-    }
-
-    public int distanceTo(Positionable target){
-        return position.distanceTo(target);
-    }
-
     public boolean addConnection(Node node) {
         NodeConnection connection = new NodeWalkConnection(this, node);
         if (connectionSet.contains(connection)) {
@@ -76,6 +56,11 @@ public abstract class Node implements Positionable {
 
     @Override
     public int hashCode() {
-        return position.hashCode();
+        return getPosition().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return position.toString();
     }
 }

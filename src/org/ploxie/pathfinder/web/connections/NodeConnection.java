@@ -4,12 +4,16 @@ import org.ploxie.pathfinder.web.node.Node;
 
 public abstract class NodeConnection {
 
-    protected final Node source;
-    protected final Node target;
+    protected Node source;
+    protected Node target;
 
     public NodeConnection(Node source, Node target){
         this.source = source;
         this.target = target;
+    }
+
+    public boolean canUse(){
+        return true;
     }
 
     public double getCost(){
@@ -29,4 +33,5 @@ public abstract class NodeConnection {
         return getSource().hashCode() + getTarget().hashCode();
     }
 
+    public abstract Class<? extends NodeConnection> getType();
 }

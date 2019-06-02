@@ -10,4 +10,10 @@ public class TileWalkConnection extends WalkConnection {
         super(source, target);
     }
 
+    @Override
+    public Class<? extends NodeConnection> getType() {
+        return TileWalkConnection.class;
+    }
+
 }
+

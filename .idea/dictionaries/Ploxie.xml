@@ -2,8 +2,13 @@
   <dictionary name="Ploxie">
     <words>
       <w>coord</w>
+      <w>draynor</w>
+      <w>edgeville</w>
       <w>lumbridge</w>
       <w>minimap</w>
+      <w>teleport</w>
+      <w>teleports</w>
+      <w>varrock</w>
     </words>
   </dictionary>
 </component>

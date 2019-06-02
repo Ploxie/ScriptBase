@@ -7,6 +7,7 @@ import org.ploxie.pathfinder.web.Web;
 import org.ploxie.pathfinder.web.connections.NodeConnection;
 import org.ploxie.pathfinder.web.connections.executor.NodeConnectionExecutor;
 import org.ploxie.pathfinder.wrapper.DefaultWalker;
+import org.rspeer.ui.Log;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,7 +57,7 @@ public abstract class Walker implements Pathfinder, PathExecutor {
     }
 
     public NodeConnectionExecutor getConnectionExecutor(NodeConnection connection){
-        return connectionExecutors.get(connection.getClass());
+        return connectionExecutors.get(connection.getType());
     }
 
     public boolean executeConnection(NodeConnection connection){
@@ -64,6 +65,7 @@ public abstract class Walker implements Pathfinder, PathExecutor {
         if(executor != null){
             return executor.execute(connection);
         }
+        Log.info("Executor is null: "+connection.getType());
         return false;
     }
 

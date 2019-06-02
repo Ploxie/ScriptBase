@@ -35,7 +35,7 @@ public class ObjectActionExecutor implements NodeConnectionExecutor<ObjectConnec
             return false;
         });
 
-
+        Log.info("OBJECT INTERACTION");
 
         if(object != null){
             return object.interact(connection.getInteractionString());

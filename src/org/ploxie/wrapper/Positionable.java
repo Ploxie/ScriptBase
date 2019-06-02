@@ -4,12 +4,24 @@ public interface Positionable {
 
     Position getPosition();
 
-    int getX();
-    int getY();
-    int getZ();
+    default int getX() {
+        return getPosition().getX();
+    }
 
-    double euclideanDistanceSquared(Positionable target);
+    default int getY() {
+        return getPosition().getY();
+    }
 
-    int distanceTo(Positionable target);
+    default int getZ() {
+        return getPosition().getZ();
+    }
+
+    default double euclideanDistanceSquared(Positionable target) {
+        return getPosition().euclideanDistanceSquared(target);
+    }
+
+    default int distanceTo(Positionable target) {
+        return getPosition().distanceTo(target);
+    }
 
 }

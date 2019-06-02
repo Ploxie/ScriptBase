@@ -33,4 +33,9 @@ public class ObjectConnection extends NodeConnection {
     public Position getPosition(){
         return position;
     }
+
+    @Override
+    public Class<? extends NodeConnection> getType() {
+        return ObjectConnection.class;
+    }
 }
