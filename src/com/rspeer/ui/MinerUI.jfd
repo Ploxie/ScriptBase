@@ -1,0 +1,238 @@
+JFDML JFormDesigner: "6.0.3.0.150" Java: "1.8.0_152-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) {
+			"autoSize": false
+		} ) {
+			name: "this"
+			"defaultCloseOperation": 2
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label1"
+				"text": "RSPeer AIO Miner v0.01"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 15
+				"y": 0
+				"width": 558
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label2"
+				"text": "Created by MadDev"
+				"foreground": new java.awt.Color( 255, 51, 51, 255 )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 15
+				"y": 25
+				"width": 512
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label4"
+				"text": "Instructions:"
+				"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 3, false )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 15
+				"y": 60
+				"width": 512
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label5"
+				"text": "1.  Select how you'd like to dispose your ores."
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 15
+				"y": 85
+				"width": 512
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label6"
+				"text": "2. Choose the script speed. The faster the speed, the more CPU it will use."
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 15
+				"y": 120
+				"width": 512
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label7"
+				"text": " Choose a faster speed if you are having trouble mining a rock over someone else. "
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 45
+				"y": 135
+				"width": 525
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label8"
+				"text": "3. Select the tile you'd like to be positioned on when mining."
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 15
+				"y": 175
+				"width": 512
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label9"
+				"text": "Clicking the button below will use your players current position."
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 40
+				"y": 195
+				"width": 512
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label3"
+				"text": "How would you like to dispose the ores?"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 10
+				"y": 315
+				"width": 275
+			} )
+			add( new FormComponent( "javax.swing.JComboBox" ) {
+				name: "disposeBox"
+				"model": new javax.swing.DefaultComboBoxModel {
+					selectedItem: "M1D1"
+					addElement( "M1D1" )
+					addElement( "M2D2" )
+					addElement( "When Full" )
+					addElement( "Bank" )
+				}
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 10
+				"y": 335
+				"width": 250
+				"height": 40
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "bankDisclaimer"
+				"text": "Please note: Banking may not work at certain locations."
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 10
+				"y": 380
+				"width": 395
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label10"
+				"text": "4. Hover over the rocks you'd like to mine and click them."
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 512
+				"height": 16
+				"x": 15
+				"y": 240
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label11"
+				"text": "They will turn green when you click them, signaling that they are selected."
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 512
+				"height": 16
+				"x": 40
+				"y": 260
+			} )
+			add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+				name: "separator1"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 5
+				"y": 305
+				"width": 575
+				"height": 20
+			} )
+			add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+				name: "separator2"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 575
+				"height": 20
+				"x": 5
+				"y": 45
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label12"
+				"text": "Select a script speed."
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 275
+				"height": 16
+				"x": 10
+				"y": 420
+			} )
+			add( new FormComponent( "javax.swing.JComboBox" ) {
+				name: "speedBox"
+				"model": new javax.swing.DefaultComboBoxModel {
+					selectedItem: "Insane"
+					addElement( "Insane" )
+					addElement( "Fast" )
+					addElement( "Medium" )
+					addElement( "Slow" )
+				}
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 250
+				"height": 30
+				"x": 10
+				"y": 440
+			} )
+			add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+				name: "separator3"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 575
+				"height": 15
+				"x": 5
+				"y": 400
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label13"
+				"text": "Set your work tile. (The tile you will be mining from.)"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 555
+				"height": 16
+				"x": 10
+				"y": 500
+			} )
+			add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+				name: "separator4"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 575
+				"height": 20
+				"x": 10
+				"y": 480
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "workTileButton"
+				"text": "Set Work Tile To Players Location"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 10
+				"y": 525
+				"width": 320
+				"height": 40
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "startButton"
+				"text": "Start Mining"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 30
+				"y": 630
+				"width": 525
+				"height": 50
+			} )
+			add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+				name: "separator6"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 575
+				"height": 20
+				"x": 5
+				"y": 575
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label14"
+				"text": "To remove a rock, just click it again if it is is selected."
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 512
+				"height": 16
+				"x": 40
+				"y": 280
+			} )
+			add( new FormComponent( "javax.swing.JCheckBoxMenuItem" ) {
+				name: "projectionCheckbox"
+				"text": "Enable low CPU mode after start."
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 10
+				"y": 595
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 275, 70 )
+			"size": new java.awt.Dimension( 590, 725 )
+		} )
+	}
+}

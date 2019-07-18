@@ -12,7 +12,6 @@ import org.ploxie.pathfinder.web.webbank.WebBankNode;
 import org.ploxie.wrapper.Position;
 import org.ploxie.pathfinder.web.node.WebNode;
 import org.ploxie.wrapper.Positionable;
-import org.rspeer.ui.Log;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -144,9 +143,8 @@ public class Web extends HashSet<WebNode> {
 
     public boolean removeWebNode(WebNode node) {
         List<NodeConnection> connectionsToRemove = new ArrayList<>();
-        for (NodeConnection connection : node.getConnections()) {
-            connectionsToRemove.add(connection);
-        }
+        connectionsToRemove.addAll(node.getConnections());
+
         for (NodeConnection connection : connectionsToRemove) {
             node.removeConnection(connection);
         }

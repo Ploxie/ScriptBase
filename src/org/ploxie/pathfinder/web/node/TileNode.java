@@ -34,9 +34,9 @@ public class TileNode extends Node {
                 if(doorData != null){
                     connections.add(new ObjectConnection(this, new TileNode(getPosition().translate(direction)), doorData.getName(), doorData.getOpenAction(), doorData.getPosition()));
                 }else{
-                    /*doorData = localRegion.getDoorData(translate(direction));
+                    /*doorData = localRegion.getDoorData(translate(direction).getPosition());
                     if(doorData != null){
-                        connections.add(new ObjectConnection(this, new TileNode(translate(direction)), doorData.getName(), doorData.getOpenAction()));
+                        connections.add(new ObjectConnection(this, new TileNode(translate(direction).getPosition()), doorData.getName(), doorData.getOpenAction(), doorData.getPosition()));
                     }*/
                 }
             }

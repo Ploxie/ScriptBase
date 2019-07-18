@@ -4,16 +4,31 @@ import org.ploxie.pathfinder.Walker2;
 import org.ploxie.pathfinder.web.Web;
 import org.ploxie.pathfinder.web.connections.*;
 import org.ploxie.pathfinder.web.node.DynamicNode;
+import org.ploxie.pathfinder.web.node.ItemRetrievedNode;
 import org.ploxie.pathfinder.web.node.Node;
 import org.ploxie.pathfinder.web.node.WebNode;
 import org.ploxie.pathfinder.web.webbank.WebBankNode;
+import org.ploxie.tasksystem.Task;
 import org.ploxie.wrapper.Position;
 import org.rspeer.runetek.api.component.tab.Inventory;
-import org.rspeer.ui.Log;
+import org.rspeer.runetek.api.component.tab.Spell;
 
 public abstract class WebArea {
 
     public abstract void addNodes(Web web);
+
+    public static class Commons extends WebArea {
+
+        @Override
+        public void addNodes(Web web) {
+            WebNode nearEgg = web.getNearestStaticNode(3177,3300, 0);
+            WebNode egg = new ItemRetrievedNode(3175, 3305, 1, 1944, 1);
+
+            ItemLootConnection lootConnection = new ItemLootConnection(nearEgg, egg, 1944);
+
+            web.addConnection(lootConnection);
+        }
+    }
 
     public static class Ladders extends WebArea {
         @Override
@@ -73,14 +88,6 @@ public abstract class WebArea {
                 }
             };
 
-            /*DynamicNode nearestNode = new DynamicNode(){
-
-                @Override
-                public Position getPosition() {
-                    return web.getNearestStaticNode(playerNode).getPosition();
-                }
-            };*/
-
             DynamicWalkConnection nearestNodeConnection = new DynamicWalkConnection() {
                 @Override
                 public Node getTarget() {
@@ -97,6 +104,43 @@ public abstract class WebArea {
                     return playerNode;
                 }
             };
+
+            web.addConnection(nearestNodeConnection);
+
+            WebNode lumbridgeCenter = web.getNearestStaticNode(3219, 3218, 0);
+            WebNode varrockCenter = web.getNearestStaticNode(3213, 3424, 0);
+            WebNode faladorCenter = web.getNearestStaticNode(2965, 3378, 0);
+
+            SpellConnection homeTeleport = new SpellConnection(playerNode, lumbridgeCenter, Spell.Modern.HOME_TELEPORT){
+                @Override
+                public double getCost() {
+                    return 1000;
+                }
+            };
+
+            SpellConnection varrockTeleport = new SpellConnection(playerNode, varrockCenter, Spell.Modern.VARROCK_TELEPORT){
+                @Override
+                public boolean canUse() {
+                    return Inventory.getCount(true,563) >= 1 && Inventory.getCount(true,556) >= 3 && Inventory.getCount(true,554) >= 1;
+                }
+            };
+            SpellConnection faladorTeleport = new SpellConnection(playerNode, faladorCenter, Spell.Modern.FALADOR_TELEPORT){
+                @Override
+                public boolean canUse() {
+                    return Inventory.getCount(true,563) >= 1 && Inventory.getCount(true,556) >= 3 && Inventory.getCount(true,555) >= 1;
+                }
+            };
+            SpellConnection lumbridgeTeleport = new SpellConnection(playerNode, lumbridgeCenter, Spell.Modern.LUMBRIDGE_TELEPORT) {
+                @Override
+                public boolean canUse() {
+                    return Inventory.getCount(true,563) >= 1 && Inventory.getCount(true,556) >= 3 && Inventory.getCount(true,557) >= 1;
+                }
+            };
+
+            //web.addConnection(homeTeleport);
+            web.addConnection(varrockTeleport);
+            web.addConnection(faladorTeleport);
+            web.addConnection(lumbridgeTeleport);
 
         }
     }

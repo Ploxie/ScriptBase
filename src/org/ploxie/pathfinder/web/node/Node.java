@@ -10,8 +10,8 @@ import java.util.Set;
 
 public abstract class Node implements Positionable {
 
-    protected Position position;
     protected Set<NodeConnection> connectionSet = new HashSet<>();
+    protected Position position;
 
     public Node(int x, int y, int z) {
         this.position = new Position(x,y,z);
@@ -41,6 +41,16 @@ public abstract class Node implements Positionable {
         return connectionSet.contains(connection) && connectionSet.remove(connection);
     }
 
+    public boolean isConnectedTo(WebNode node){
+        for(NodeConnection connection : connectionSet){
+            if(connection.getTarget().equals(node)){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public Set<NodeConnection> getConnections() {
         return connectionSet;
     }
@@ -61,6 +71,6 @@ public abstract class Node implements Positionable {
 
     @Override
     public String toString() {
-        return position.toString();
+        return getPosition().toString();
     }
 }

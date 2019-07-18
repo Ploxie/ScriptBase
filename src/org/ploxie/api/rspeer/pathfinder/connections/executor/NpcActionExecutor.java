@@ -24,7 +24,7 @@ public class NpcActionExecutor implements NodeConnectionExecutor<NpcConnection> 
                 return false;
             }
             for (String action : npc.getActions()) {
-                if (action.equalsIgnoreCase(action)) {
+                if (action.equalsIgnoreCase(connection.getAction())) {
                     return true;
                 }
             }

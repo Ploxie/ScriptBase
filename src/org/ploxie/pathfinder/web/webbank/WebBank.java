@@ -1,9 +1,7 @@
 package org.ploxie.pathfinder.web.webbank;
 
-import org.ploxie.pathfinder.methods.astar.AStar;
 import org.ploxie.pathfinder.methods.astar.AStarEndCondition;
 import org.ploxie.pathfinder.web.node.Node;
-import org.ploxie.wrapper.Condition;
 import org.ploxie.wrapper.Position;
 import org.ploxie.wrapper.Positionable;
 

@@ -23,25 +23,35 @@ public class DefaultWalker extends Walker {
 
     @Override
     public Path findPath(Position start, Position end) {
-        Node startNode = web.getNearestNode(start);
-        Node endNode = web.getNearestNode(end);
-
-
-        boolean canReach = Walker.getInstance().getReachable().canReach(end, start);
-        if (canReach) {
-            startNode = new TileNode(start);
-            endNode = new TileNode(end);
+        Path path = findLocalPath(start, end);
+        if(path != null){
+            return path;
         }
 
-        return new AStar().buildPath(startNode, endNode);
+        return findWebPath(start, end);
+    }
+
+    @Override
+    public LocalPath findLocalPath(Position start, Position end){
+        boolean canReach = Walker.getInstance().getReachable().canReach(end, start);
+        if (!canReach) {
+            return null;
+        }
+
+        return new AStar().buildPath(new TileNode(start), new TileNode(end));
+    }
+
+    @Override
+    public WebPath findWebPath(Position start, Position end){
+        return new AStar().buildPath(web.getNearestNode(start), web.getNearestNode(end));
     }
 
     @Override
     public boolean execute(Path path) {
-        if(path instanceof LocalPath){
-            return execute((LocalPath)path);
+        if (path instanceof LocalPath) {
+            return execute((LocalPath) path);
         }
-        if(path instanceof WebPath){
+        if (path instanceof WebPath) {
             return execute((WebPath) path);
         }
 
@@ -77,40 +87,45 @@ public class DefaultWalker extends Walker {
         return false;*/
     }
 
-    private boolean execute(LocalPath path){
+    private boolean execute(LocalPath path) {
         NodeConnection firstAction = path.getFirstActionConnection();
-        if(firstAction != null){
+        if (firstAction != null) {
             return executeConnection(firstAction);
         }
 
         NodeConnection walkConnection = path.getLastWalkConnection(Walker.getInstance().getReachable());
-        if(walkConnection != null){
+        if (walkConnection != null) {
             return executeConnection(walkConnection);
         }
 
-        Log.info("LOCALPATH CANT TRAVERSE");
-        return false;
+        return true;
     }
 
-    private boolean execute(WebPath path){
+    private boolean execute(WebPath path) {
         NodeConnection firstAction = path.getFirstActionConnection();
-        if(firstAction != null && Walker.getInstance().getReachable().canReach(firstAction.getSource().getPosition(), Walker2.getLocalPlayerPosition())){
+        if (firstAction != null && Walker.getInstance().getReachable().canReach(firstAction.getSource().getPosition(), Walker2.getLocalPlayerPosition())) {
             LocalPath localPath = new AStar().buildPath(new TileNode(Walker2.getLocalPlayerPosition()), new TileNode(firstAction.getSource().getPosition()));
-            if(!localPath.containsSpecialAction()){
-                Log.info("executing special connection: "+(firstAction instanceof ItemActionConnection));
+            if (localPath == null || !localPath.containsSpecialAction()) {
+                Log.info("executing special connection: " + firstAction.getType());
                 return executeConnection(firstAction);
-            }else{
+            } else {
                 execute(localPath);
             }
         }
 
         NodeConnection walkConnection = path.getLastWalkConnection(Walker.getInstance().getReachable());
-        if(walkConnection != null){
+        if (walkConnection != null) {
             LocalPath localPath = new AStar().buildPath(new TileNode(Walker2.getLocalPlayerPosition()), new TileNode(walkConnection.getTarget().getPosition()));
-            if(!localPath.containsSpecialAction()){
-                return executeConnection(walkConnection);
-            }else{
-                execute(localPath);
+            if (localPath == null) {
+                Position nearestPosition = Walker.getInstance().getReachable().getClosestTo(walkConnection.getTarget());
+                localPath = new AStar().buildPath(new TileNode(Walker2.getLocalPlayerPosition()), new TileNode(nearestPosition));
+            }
+            if (localPath != null) {
+                if (!localPath.containsSpecialAction()) {
+                    return executeConnection(walkConnection);
+                } else {
+                    execute(localPath);
+                }
             }
         }
 

@@ -1,8 +1,8 @@
 package org.ploxie.pathfinder.methods.astar;
 
-import org.ploxie.pathfinder.web.connections.ItemActionConnection;
+import org.ploxie.pathfinder.web.connections.ItemLootConnection;
 import org.ploxie.pathfinder.web.connections.NodeConnection;
-import org.ploxie.pathfinder.web.connections.NpcConnection;
+import org.ploxie.pathfinder.web.node.ItemRetrievedNode;
 import org.ploxie.pathfinder.web.node.Node;
 import org.ploxie.pathfinder.web.node.TileNode;
 import org.ploxie.pathfinder.web.node.WebNode;
@@ -16,7 +16,7 @@ import java.util.*;
 
 public class AStar {
 
-    private PriorityQueue<AStarStore> openList;
+    private PriorityQueue<AStarStore> openQueue;
 
     private Set<Node> openSet;
     private Set<Node> closedSet;
@@ -28,7 +28,7 @@ public class AStar {
     private Node endNode;
 
     public AStar(){
-        openList = new PriorityQueue<>();
+        openQueue = new PriorityQueue<>();
 
         openSet = new HashSet<>();
         closedSet = new HashSet<>();
@@ -55,18 +55,20 @@ public class AStar {
         return buildPath(start, end, false, null);
     }
 
+    public Path buildPath(Node start, Node end, boolean ignoreNoPath){
+        return buildPath(start, end, ignoreNoPath, null);
+    }
+
     protected Path buildPath(Node start, Node end, boolean ignoreNoPath, AStarEndCondition condition){
         this.startNode = start;
         this.endNode = end;
 
-        openList.add(new AStarStore(start, 0.0D));
+        openQueue.add(new AStarStore(start, 0.0D));
         openSet.add(start);
         costCache.put(start, 0.0D);
 
-
-
-        while(!openList.isEmpty()){
-            AStarStore current = openList.poll();
+        while(!openQueue.isEmpty()){
+            AStarStore current = openQueue.poll();
             openSet.remove(current.getNode());
 
             closedSet.add(current.getNode());
@@ -76,7 +78,6 @@ public class AStar {
                 isEndCondition = isEndNode();
             }
 
-
             if(isEndCondition.validate(current.getNode())){
                 endNode = current.getNode();
                 if(start instanceof TileNode){
@@ -84,7 +85,7 @@ public class AStar {
                     path.setCost(costCache.get(endNode));
                     return path;
                 }else if(start instanceof WebNode){
-                    WebPath path = new WebPath(startNode, endNode, collectPath());
+                    WebPath path = new WebPath((WebNode)startNode, (WebNode)endNode, collectPath());
                     path.setCost(costCache.get(endNode));
                     return path;
                 }
@@ -94,14 +95,18 @@ public class AStar {
             }
         }
 
-        return ignoreNoPath ? new NodePath(startNode, endNode, collectPath()) : null;
+        if(!ignoreNoPath){
+            return null;
+        }
+
+        return new NodePath(startNode, endNode, collectPath());
+
     }
 
     private void addNeighbours(AStarStore store){
         for (NodeConnection connection : store.getNode().getConnections()) {
 
             if(!connection.canUse()){
-                Log.info(connection);
                 continue;
             }
             Node target = connection.getTarget();
@@ -109,18 +114,16 @@ public class AStar {
                 continue;
             }
 
-
-
             if (!openSet.contains(target)) {
-                double cost = store.getNode().getPosition().distanceTo(target.getPosition());
+                //double cost = store.getNode().getPosition().distanceTo(target.getPosition());
                 double g = costCache.get(store.getNode());
-                double heuristic = getHeuristic(store.getNode()) + connection.getCost();
+                double heuristic = connection.getCost();
                 double totalCost =  g + heuristic;
 
                 pathCache.put(target, connection);
                 costCache.put(target, totalCost);
 
-                openList.add(new AStarStore(target, totalCost));
+                openQueue.add(new AStarStore(target, totalCost));
                 openSet.add(target);
                 continue;
             }
@@ -131,6 +134,7 @@ public class AStar {
         List<NodeConnection> path = new ArrayList<>();
 
         NodeConnection currentConnection = pathCache.get(endNode);
+        Log.info(currentConnection == null);
         path.add(currentConnection);
 
         while(true){
@@ -151,10 +155,6 @@ public class AStar {
         Collections.reverse(path);
 
         return path;
-    }
-
-    private double getHeuristic(Node current){
-        return current.getPosition().euclideanDistanceSquared(endNode.getPosition());
     }
 
     private AStarEndCondition isEndNode(){

@@ -12,7 +12,7 @@ public class NodePath implements Path {
 
     private Node startNode;
     private Node endNode;
-    private List<NodeConnection> connections;
+    protected List<NodeConnection> connections;
     private double cost;
 
     public NodePath(Node start, Node end, List<NodeConnection> connections){
@@ -50,6 +50,7 @@ public class NodePath implements Path {
         return cost;
     }
 
+    @Override
     public boolean containsSpecialAction(){
         return getFirstActionConnection() != null;
     }

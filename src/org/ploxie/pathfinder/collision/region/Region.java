@@ -42,6 +42,26 @@ public abstract class Region {
 
     public boolean canGoInDirection(Position from, int xDir, int yDir){
         Position to = from.translate(xDir, yDir, from.getZ());
+
+        int x = from.getX();
+        int y = from.getY();
+
+        /*if(xDir > 1){
+            x = from.translate(xDir -1, 0, 0).getX();
+        }
+        if(xDir < 1){
+            x = from.translate(xDir + 1, 0, 0).getX();
+        }
+
+        if(yDir > 1){
+            y = from.translate(0, yDir -1, 0).getY();
+        }
+        if(yDir < 1){
+            y = from.translate(0, yDir +1, 0).getY();
+        }
+
+        from = new Position(x,y, from.getZ());*/
+
         if(!isInside(to)){
             return false;
         }
@@ -54,9 +74,7 @@ public abstract class Region {
         }
 
         if(xDir != 0 && yDir != 0){
-            if(!get(from.translate(xDir,0,0)).isWalkable() || !get(from.translate(0, yDir, 0)).isWalkable()){
-                return false;
-            }
+            return get(from.translate(xDir, 0, 0)).isWalkable() && get(from.translate(0, yDir, 0)).isWalkable();
         }
 
         return true;

@@ -39,7 +39,7 @@ public class RegionFileIO {
                             (byte)((value >> 24) & 0xff),
                             (byte)((value >> 16) & 0xff),
                             (byte)((value >> 8) & 0xff),
-                            (byte)((value >> 0) & 0xff),
+                            (byte)((value) & 0xff),
                     });
                 }
             }

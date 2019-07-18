@@ -52,9 +52,7 @@ public class LocalRegion {
         }
 
         if(xDir != 0 && yDir != 0){
-            if(!get(from.translate(xDir,0,0)).isWalkable() || !get(from.translate(0, yDir, 0)).isWalkable()){
-                return false;
-            }
+            return get(from.translate(xDir, 0, 0)).isWalkable() && get(from.translate(0, yDir, 0)).isWalkable();
         }
 
         return true;

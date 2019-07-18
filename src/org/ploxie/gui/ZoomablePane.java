@@ -1,7 +1,5 @@
 package org.ploxie.gui;
 
-import javafx.scene.transform.Affine;
-
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -27,8 +25,6 @@ public class ZoomablePane extends JPanel implements MouseWheelListener, MouseLis
     private double prevZoomFactor = 1;
     protected double xOffset = 0;
     protected double yOffset = 0;
-    private int xDiff;
-    private int yDiff;
     private Point startPoint;
 
     public AffineTransform transform = new AffineTransform();
@@ -104,8 +100,8 @@ public class ZoomablePane extends JPanel implements MouseWheelListener, MouseLis
 
         if(e.getModifiers() == 4) {
             Point curPoint = e.getLocationOnScreen();
-            xDiff = curPoint.x - startPoint.x;
-            yDiff = curPoint.y - startPoint.y;
+            int xDiff = curPoint.x - startPoint.x;
+            int yDiff = curPoint.y - startPoint.y;
 
             xOffset += xDiff;
             yOffset += yDiff;

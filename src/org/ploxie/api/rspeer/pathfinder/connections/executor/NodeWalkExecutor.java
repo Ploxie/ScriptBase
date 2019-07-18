@@ -5,7 +5,6 @@ import org.ploxie.pathfinder.Walker2;
 import org.ploxie.pathfinder.methods.astar.AStar;
 import org.ploxie.pathfinder.web.connections.NodeConnection;
 import org.ploxie.pathfinder.web.connections.NodeWalkConnection;
-import org.ploxie.pathfinder.web.connections.WalkConnection;
 import org.ploxie.pathfinder.web.connections.executor.NodeConnectionExecutor;
 import org.ploxie.pathfinder.web.node.TileNode;
 import org.ploxie.pathfinder.web.path.Path;
@@ -29,7 +28,7 @@ public class NodeWalkExecutor implements NodeConnectionExecutor<NodeWalkConnecti
             walkToPosition = Walker.getInstance().getReachable().getClosestTo(walkToPosition);
         }
 
-        Path localPath = new AStar().buildPath(new TileNode(Walker2.getLocalPlayerPosition()), new TileNode(walkToPosition));
+        Path localPath = Walker.getInstance().findLocalPath(Walker2.getLocalPlayerPosition(), walkToPosition);
 
         List<NodeConnection> connections = localPath.getConnections();
         Collections.reverse(connections);

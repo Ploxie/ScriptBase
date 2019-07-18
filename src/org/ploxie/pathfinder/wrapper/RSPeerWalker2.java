@@ -5,7 +5,6 @@ import org.ploxie.pathfinder.collision.region.Region;
 import org.ploxie.pathfinder.web.Web;
 import org.ploxie.wrapper.Position;
 import org.rspeer.RSPeer;
-import org.rspeer.runetek.api.movement.Movement;
 import org.rspeer.runetek.api.scene.Players;
 
 public class RSPeerWalker2 extends AbstractWalker2 {

@@ -2,17 +2,17 @@ package org.ploxie.api.rspeer.scripts;
 
 
 import org.ploxie.api.rspeer.pathfinder.RSPeerWalker;
+import org.ploxie.api.rspeer.scripts.quester.Quest;
+import org.ploxie.api.rspeer.scripts.quester.cooksassistant.CooksAssistant;
 import org.ploxie.pathfinder.Walker;
 import org.ploxie.pathfinder.Walker2;
 import org.ploxie.pathfinder.web.Web;
-import org.ploxie.pathfinder.web.area.WebArea;
 import org.ploxie.pathfinder.web.connections.NodeConnection;
 import org.ploxie.pathfinder.web.node.WebNode;
 import org.ploxie.pathfinder.web.path.Path;
 import org.ploxie.pathfinder.wrapper.RSPeerWalker2;
 import org.ploxie.pathfinder.web.WebFileIO;
 import org.ploxie.wrapper.Position;
-import org.rspeer.runetek.api.movement.Movement;
 import org.rspeer.runetek.api.scene.Projection;
 import org.rspeer.runetek.event.listeners.RenderListener;
 import org.rspeer.runetek.event.types.RenderEvent;
@@ -28,6 +28,9 @@ import java.io.File;
 public class TestScript extends Script implements RenderListener{
 
     private Web web;
+    private Path currentPath;
+
+    private Quest quest = new CooksAssistant();
 
     @Override
     public void onStart() {
@@ -37,7 +40,8 @@ public class TestScript extends Script implements RenderListener{
         Walker2.setInternalWalker(new RSPeerWalker2(web));
 
 
-
+        //Inventory.setInternal(new RSPeerInventory());
+        //Players.setInternal(new RSPeerPlayers());
 
         Walker.create(new RSPeerWalker(web));
 
@@ -47,40 +51,9 @@ public class TestScript extends Script implements RenderListener{
     @Override
     public int loop() {
 
-        if(Movement.isDestinationSet()){
-            return 1000;
-        }
+        quest.execute();
 
-        //Log.info(web.getNearestBank());
 
-        //Path path = Walker.getInstance().findPath(Walker2.getLocalPlayerPosition(), new Position(3254, 3420,0));
-        //Path path = Walker.getInstance().findPath(Walker2.getLocalPlayerPosition(), new Position(3259, 3228,0));
-
-        Path path = Walker.getInstance().findPath(Walker2.getLocalPlayerPosition(), new Position(3228, 3219,2));
-
-        if(path != null){
-            Log.info(path.getCost());
-            path.traverse();
-        }else{
-            Log.info("ASD");
-        }
-
-       /*WebPath localPath = RSPeerWalker2.findLocalPath(new Position(3259, 3228,0));
-       if(localPath != null){
-          RSPeerWalker2.traverseLocalPath(localPath);
-       }*/
-
-       /*if(Movement.isDestinationSet()){
-           return 1000;
-       }
-
-        NodePath path = (NodePath)new AStar().buildPath(new TileNode(Walker2.getLocalPlayerPosition()), new TileNode(3235,3227,0));
-        if(path != null){
-
-            path.traverse();
-        }else{
-            Log.info("ASD");
-        }*/
 
         return 1000;
     }
@@ -89,6 +62,9 @@ public class TestScript extends Script implements RenderListener{
     public void notify(RenderEvent renderEvent) {
 
         Graphics g = renderEvent.getSource();
+
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
 
         if(g == null){
             return;
@@ -110,6 +86,13 @@ public class TestScript extends Script implements RenderListener{
                 if(p != null && p2 != null){
                     g.drawLine(p.x, p.y, p2.x, p2.y);
                 }
+            }
+        }
+
+        if(currentPath != null){
+            for(NodeConnection c : currentPath.getConnections()){
+                org.rspeer.runetek.api.movement.position.Position pos = new org.rspeer.runetek.api.movement.position.Position(c.getSource().getX(), c.getSource().getY(), c.getSource().getZ());
+                pos.outline(g);
             }
         }
 

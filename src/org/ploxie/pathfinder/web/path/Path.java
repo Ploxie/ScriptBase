@@ -19,6 +19,8 @@ public interface Path {
 
     Node getEndNode();
 
+    boolean containsSpecialAction();
+
     double getCost();
 
 }

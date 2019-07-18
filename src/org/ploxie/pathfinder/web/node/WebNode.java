@@ -11,4 +11,7 @@ public class WebNode extends Node {
     public WebNode(Position position) {
         super(position);
     }
+
+
+
 }

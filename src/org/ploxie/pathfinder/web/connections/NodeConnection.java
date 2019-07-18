@@ -34,4 +34,9 @@ public abstract class NodeConnection {
     }
 
     public abstract Class<? extends NodeConnection> getType();
+
+    @Override
+    public String toString() {
+        return this.getSource() + " -> " + this.getTarget();
+    }
 }

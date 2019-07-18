@@ -1,11 +1,7 @@
 package org.ploxie.api.rspeer.pathfinder.connections.executor;
 
-import org.ploxie.pathfinder.Walker2;
-import org.ploxie.pathfinder.methods.astar.AStar;
 import org.ploxie.pathfinder.web.connections.ObjectConnection;
 import org.ploxie.pathfinder.web.connections.executor.NodeConnectionExecutor;
-import org.ploxie.pathfinder.web.node.TileNode;
-import org.ploxie.pathfinder.web.path.LocalPath;
 import org.ploxie.wrapper.Position;
 import org.rspeer.runetek.adapter.scene.SceneObject;
 import org.rspeer.runetek.api.scene.SceneObjects;
@@ -28,7 +24,7 @@ public class ObjectActionExecutor implements NodeConnectionExecutor<ObjectConnec
                 return false;
             }
             for (String action : sceneObject.getActions()) {
-                if (action.equalsIgnoreCase(action)) {
+                if (action.equalsIgnoreCase(connection.getInteractionString())) {
                     return true;
                 }
             }

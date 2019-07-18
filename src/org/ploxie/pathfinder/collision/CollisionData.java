@@ -74,10 +74,7 @@ public class CollisionData {
             return true;
         }
 
-        if (x > 0 && y < 0 && blockedSouthEast()) {
-            return true;
-        }
-        return false;
+        return x > 0 && y < 0 && blockedSouthEast();
     }
 
     public boolean isWalkable() {

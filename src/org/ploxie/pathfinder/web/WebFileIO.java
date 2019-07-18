@@ -2,6 +2,7 @@ package org.ploxie.pathfinder.web;
 
 
 import org.ploxie.pathfinder.web.connections.NodeConnection;
+import org.ploxie.pathfinder.web.connections.NodeWalkConnection;
 import org.ploxie.pathfinder.web.node.WebNode;
 
 import java.io.*;
@@ -13,9 +14,9 @@ public class WebFileIO {
     public static void saveWebToFile(Web web, File file){
         List<NodeConnection> addedConnectionsList = new ArrayList<>();
 
-       /* for(WebNode node : web){
-            for(WebNodeConnection connection : node.getConnections()){
-                WebNodeConnection reversed = new WalkConnection2(connection.getTarget(), connection.getSource());
+        for(WebNode node : web){
+            for(NodeConnection connection : node.getConnections()){
+                NodeConnection reversed = new NodeWalkConnection(connection.getTarget(), connection.getSource());
                 if(addedConnectionsList.contains(connection) || addedConnectionsList.contains(reversed)){
                     continue;
                 }
@@ -25,14 +26,14 @@ public class WebFileIO {
 
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-            for(WebNodeConnection connection : addedConnectionsList){
+            for(NodeConnection connection : addedConnectionsList){
                 writer.write(connection.toString()+"\n");
             }
 
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
     public static Web loadWeb(File file){
